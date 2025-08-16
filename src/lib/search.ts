@@ -1,6 +1,6 @@
 import type { PromptsJson } from '../types'
 
-function hashId(input: string) {
+export function hashId(input: string) {
   let h = 0
   for (let i = 0; i < input.length; i++) {
     h = ((h << 5) - h) + input.charCodeAt(i)

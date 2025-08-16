@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useVault } from './store'
 import type { PromptsJson } from './types'
-import { flatten } from './lib/search'
+import { flatten, hashId } from './lib/search'
 import { PromptCard } from './components/PromptCard'
 import { Toast } from './components/Toast'
 import { Header } from './components/Header'
@@ -167,10 +167,11 @@ export default function App() {
                         <div key={c.category} id={anchorId} className="space-y-3">
                           <h3 className="text-sm text-slate-500 dark:text-slate-400">{titleCase(c.category)}</h3>
                           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-                            {c.prompts.map((p, i) => (
-                              {/* compute id same way as flatten: */}
-{(() => { const id = 'p' + Math.abs(Array.from(`${activeTab}::${s.section}::${c.category}::${p}`).reduce((h,ch)=>((h<<5)-h)+ch.charCodeAt(0)|0,0)).toString(36); return <PromptCard key={id} id={id} text={p} onCopy={() => handleCopy(p)} onToggleFav={toggleFavorite} fav={isFavorite(id)} /> })()}
-                            ))}
+                            {c.prompts.map((p, i) => {
+                              // compute id same way as flatten:
+                              const id = hashId(`${activeTab}::${s.section}::${c.category}::${p}`)
+                              return <PromptCard key={id} id={id} text={p} onCopy={() => handleCopy(p)} onToggleFav={toggleFavorite} fav={isFavorite(id)} />
+                            })}
                           </div>
                         </div>
                       )
