@@ -172,6 +172,7 @@ export default function App() {
                               const id = hashId(`${activeTab}::${s.section}::${c.category}::${p}`)
                               return <PromptCard key={id} id={id} text={p} onCopy={() => handleCopy(p)} onToggleFav={toggleFavorite} fav={isFavorite(id)} />
                             })}
+                            })}
                           </div>
                         </div>
                       )
